@@ -21,7 +21,7 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/contact", "/notices").permitAll();
         http.formLogin();
         http.httpBasic();
-        
+
         configurationForH2Console(http);
     }
 
