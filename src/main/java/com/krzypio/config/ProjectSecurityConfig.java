@@ -21,6 +21,17 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/contact", "/notices").permitAll();
         http.formLogin();
         http.httpBasic();
+        
+        configurationForH2Console(http);
+    }
+
+    private void configurationForH2Console(HttpSecurity http) throws Exception {
+        // we need config just for console, nothing else
+        http.authorizeRequests().antMatchers("/h2_console/**").permitAll();
+        // this will ignore only h2-console csrf, spring security 4+
+        http.csrf().ignoringAntMatchers("/h2-console/**");
+        //this will allow frames with same origin which is much more safe
+        http.headers().frameOptions().sameOrigin();
     }
 
 //    @Override
