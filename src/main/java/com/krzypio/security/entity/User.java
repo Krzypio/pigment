@@ -1,4 +1,4 @@
-package com.krzypio.springsecuritybasic.entity;
+package com.krzypio.security.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

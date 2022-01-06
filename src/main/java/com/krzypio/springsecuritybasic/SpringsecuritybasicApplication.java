@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScans;
 @SpringBootApplication
 @ComponentScans({
 		@ComponentScan("com.krzypio.controller"),
-		@ComponentScan("com.krzypio.config")
+		@ComponentScan("com.krzypio.security")
 })
 
 public class SpringsecuritybasicApplication {

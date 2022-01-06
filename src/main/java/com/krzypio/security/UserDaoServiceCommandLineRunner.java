@@ -1,13 +1,15 @@
-package com.krzypio.springsecuritybasic;
+package com.krzypio.security;
 
-import com.krzypio.springsecuritybasic.entity.User;
-import com.krzypio.springsecuritybasic.service.UserDAOService;
+import com.krzypio.security.entity.User;
+import com.krzypio.security.service.UserDAOService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.stereotype.Component;
 
+@EntityScan(basePackages = "com.krzypio.security")
 @Component
 public class UserDaoServiceCommandLineRunner implements CommandLineRunner {
 

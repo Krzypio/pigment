@@ -1,6 +1,6 @@
-package com.krzypio.springsecuritybasic.service;
+package com.krzypio.security.service;
 
-import com.krzypio.springsecuritybasic.entity.User;
+import com.krzypio.security.entity.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
