@@ -28,9 +28,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         //to enable posts and resolve 403 Forbidden error
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/myUser").authenticated()
-                .antMatchers("/myAccount").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/users").hasRole("ADMIN");
+                .antMatchers("/my**/**").authenticated()
+                .antMatchers("/users**/**").hasRole("ADMIN");
+                //.anyRequest().hasRole("ADMIN");
         http.formLogin();
         http.httpBasic();
 

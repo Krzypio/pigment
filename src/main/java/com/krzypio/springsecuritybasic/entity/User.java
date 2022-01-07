@@ -8,7 +8,7 @@ import java.util.Date;
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue
     private long id;
 
     @Column(unique = true)

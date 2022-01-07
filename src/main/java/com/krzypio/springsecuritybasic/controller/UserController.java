@@ -1,14 +1,14 @@
 package com.krzypio.springsecuritybasic.controller;
 
+import com.krzypio.springsecuritybasic.exception.user.UserAlreadyExistException;
+import com.krzypio.springsecuritybasic.service.UserService;
 import com.krzypio.springsecuritybasic.entity.User;
+import com.krzypio.springsecuritybasic.exception.user.UserNotFoundException;
 import com.krzypio.springsecuritybasic.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,12 +22,21 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping("/myUser")
     public User getMyUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User user = userRepository.findByUsername(username).get();
         return user;
+    }
+
+    @PatchMapping("/myUserPassword")
+    public User updateMyUserPassword(@RequestParam String oldPassword, @RequestParam String newPassword){
+        User updatedUser = userService.updatePassword(oldPassword, newPassword);
+        return updatedUser;
     }
 
     @GetMapping("/users")
@@ -38,14 +47,17 @@ public class UserController {
     @GetMapping("/users/{id}")
     public User retrieveUserById(@PathVariable long id){
         Optional<User> retrievedUser = userRepository.findById(id);
-        //retrievedUser.orElseThrow(() -> new UserNotFoundException("Not found: " + id)); //to implement
+        retrievedUser.orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found.")); //to implement
         return retrievedUser.get();
     }
 
     @PostMapping("/users")
     public ResponseEntity createUser(@RequestBody User user){
-        User savedUser = userRepository.save(user);
-        //if (savedUser == null) throw new UserAlreadyExistException("User with username: " + user.getUsername() + " already exist.");
+        Optional<User> existingUser = userRepository.findByUsername(user.getUsername());
+        if (existingUser.isPresent())
+            throw new UserAlreadyExistException("User with username: " + user.getUsername() + " already exist.");
+
+        User savedUser = userService.save(user);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(savedUser.getId())
@@ -55,7 +67,15 @@ public class UserController {
 //        headers.setLocation(location);
 //        ResponseEntity responseEntity = new ResponseEntity<User>(user, headers, HttpStatus.CREATED);
 
-        return  ResponseEntity.created(location).body(user);
+        return  ResponseEntity.created(location).body(savedUser);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity deleteById(@PathVariable long id){
+        Optional<User> existingUser = userRepository.findById(id);
+        existingUser.orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found."));
+        userRepository.deleteById(id);
+        return ResponseEntity.ok("User with id " + id + " deleted.");
     }
 }
 
