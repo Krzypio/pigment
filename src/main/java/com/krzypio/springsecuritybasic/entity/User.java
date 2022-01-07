@@ -17,6 +17,7 @@ public class User {
     @Size(min = 2, message = "Name should have at least 2 characters")
     private String username;
 
+    @Size(min = 4, message = "Password should have at least 4 characters")
     private String password;
 
     private boolean active;

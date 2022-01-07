@@ -1,12 +1,12 @@
 package com.krzypio.springsecuritybasic.exception;
 
+import com.krzypio.springsecuritybasic.exception.user.UserPasswordNotValidException;
 import com.krzypio.springsecuritybasic.exception.user.UserAlreadyExistException;
 import com.krzypio.springsecuritybasic.exception.user.UserNotFoundException;
 import com.krzypio.springsecuritybasic.exception.user.UserPasswordNotMatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -57,6 +57,13 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         for (ObjectError error : ex.getBindingResult().getAllErrors())
             defaultErrorMessages.add(error.getDefaultMessage());
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), status, "Validation failed", defaultErrorMessages.toString());
+        return new ResponseEntity<>(exceptionResponse, status);
+    }
+
+    @ExceptionHandler(UserPasswordNotValidException.class)
+    protected ResponseEntity<Object> handleUserPasswordNotValidException(UserPasswordNotValidException ex, WebRequest request) throws Exception {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), status, "Validation failed" , ex.getMessage());
         return new ResponseEntity<>(exceptionResponse, status);
     }
 }
