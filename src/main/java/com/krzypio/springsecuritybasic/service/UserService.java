@@ -18,6 +18,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,7 @@ import java.util.Set;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -62,12 +64,13 @@ public class UserService {
     }
 
     private boolean isNewPasswordValid(String newPassword){
-        //check if new password is valid with User Entity
+        //check if new password is valid with User Entity. It sot clean.
         String testUsername = "_test";
         Optional<User> test = userRepository.findByUsername(testUsername);
         if(test.isPresent())
             userRepository.deleteById(test.get().getId());
         User testUser = new User(testUsername, newPassword, "ROLE_USER");
+
         try {
             userRepository.save(testUser);
             userRepository.delete(testUser);
