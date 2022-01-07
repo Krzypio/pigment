@@ -1,7 +1,7 @@
-package com.krzypio.springsecuritybasic.repository;
+package com.krzypio.pigment.repository;
 
 
-import com.krzypio.springsecuritybasic.entity.User;
+import com.krzypio.pigment.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

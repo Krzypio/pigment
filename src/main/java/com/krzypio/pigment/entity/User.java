@@ -1,4 +1,4 @@
-package com.krzypio.springsecuritybasic.entity;
+package com.krzypio.pigment.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Past;

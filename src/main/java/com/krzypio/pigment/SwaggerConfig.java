@@ -1,4 +1,4 @@
-package com.krzypio.springsecuritybasic;
+package com.krzypio.pigment;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

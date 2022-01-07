@@ -1,4 +1,4 @@
-package com.krzypio.springsecuritybasic.exception;
+package com.krzypio.pigment.exception;
 
 import org.springframework.http.HttpStatus;
 

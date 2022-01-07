@@ -1,9 +1,9 @@
-package com.krzypio.springsecuritybasic.exception;
+package com.krzypio.pigment.exception;
 
-import com.krzypio.springsecuritybasic.exception.user.UserPasswordNotValidException;
-import com.krzypio.springsecuritybasic.exception.user.UserAlreadyExistException;
-import com.krzypio.springsecuritybasic.exception.user.UserNotFoundException;
-import com.krzypio.springsecuritybasic.exception.user.UserPasswordNotMatchException;
+import com.krzypio.pigment.exception.user.UserPasswordNotValidException;
+import com.krzypio.pigment.exception.user.UserAlreadyExistException;
+import com.krzypio.pigment.exception.user.UserNotFoundException;
+import com.krzypio.pigment.exception.user.UserPasswordNotMatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

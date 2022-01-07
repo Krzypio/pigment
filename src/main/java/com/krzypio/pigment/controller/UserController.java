@@ -1,10 +1,10 @@
-package com.krzypio.springsecuritybasic.controller;
+package com.krzypio.pigment.controller;
 
-import com.krzypio.springsecuritybasic.exception.user.UserAlreadyExistException;
-import com.krzypio.springsecuritybasic.service.UserService;
-import com.krzypio.springsecuritybasic.entity.User;
-import com.krzypio.springsecuritybasic.exception.user.UserNotFoundException;
-import com.krzypio.springsecuritybasic.repository.UserRepository;
+import com.krzypio.pigment.exception.user.UserAlreadyExistException;
+import com.krzypio.pigment.service.UserService;
+import com.krzypio.pigment.entity.User;
+import com.krzypio.pigment.exception.user.UserNotFoundException;
+import com.krzypio.pigment.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

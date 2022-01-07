@@ -1,7 +1,7 @@
-package com.krzypio.springsecuritybasic.security;
+package com.krzypio.pigment.security;
 
-import com.krzypio.springsecuritybasic.entity.User;
-import com.krzypio.springsecuritybasic.repository.UserRepository;
+import com.krzypio.pigment.entity.User;
+import com.krzypio.pigment.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;

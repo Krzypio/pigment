@@ -1,7 +1,7 @@
-package com.krzypio.springsecuritybasic.runner;
+package com.krzypio.pigment.runner;
 
-import com.krzypio.springsecuritybasic.entity.User;
-import com.krzypio.springsecuritybasic.repository.UserRepository;
+import com.krzypio.pigment.entity.User;
+import com.krzypio.pigment.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
