@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -52,7 +53,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity createUser(@RequestBody User user){
+    public ResponseEntity createUser(@Valid @RequestBody User user){
         Optional<User> existingUser = userRepository.findByUsername(user.getUsername());
         if (existingUser.isPresent())
             throw new UserAlreadyExistException("User with username: " + user.getUsername() + " already exist.");

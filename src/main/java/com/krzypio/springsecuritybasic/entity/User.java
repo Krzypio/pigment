@@ -1,6 +1,8 @@
 package com.krzypio.springsecuritybasic.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -12,6 +14,7 @@ public class User {
     private long id;
 
     @Column(unique = true)
+    @Size(min = 2, message = "Name should have at least 2 characters")
     private String username;
 
     private String password;
@@ -20,6 +23,7 @@ public class User {
 
     private String roles;
 
+    @Past
     private Date creationDate;
 
     protected User() {
