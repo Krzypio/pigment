@@ -23,16 +23,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        configurationForH2Console(http);
+
+        //to enable posts and resolve 403 Forbidden error
+        http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/myAccount", "/myBalance", "/myCards", "/myLoans").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/contact", "/notices").permitAll();
+                .antMatchers("/myUser").authenticated()
+                .antMatchers("/myAccount").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/users").hasRole("ADMIN");
         http.formLogin();
         http.httpBasic();
 
-        configurationForH2Console(http);
     }
 
     private void configurationForH2Console(HttpSecurity http) throws Exception {
+        //It must be on the beggining of the configure due to http.csrf() declaration. Otherwise 403 Forbidden error for posts.
         // we need config just for console, nothing else
         http.authorizeRequests().antMatchers("/h2_console/**").permitAll();
         // this will ignore only h2-console csrf, spring security 4+

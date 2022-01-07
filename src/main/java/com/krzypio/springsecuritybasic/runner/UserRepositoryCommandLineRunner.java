@@ -9,6 +9,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Component
 public class UserRepositoryCommandLineRunner implements CommandLineRunner {
 
@@ -22,8 +25,10 @@ public class UserRepositoryCommandLineRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        User user = new User("user", passwordEncoder.encode("pass"), "ROLE_USER");
-        User savedUser = userRepository.save(user);
-        log.info("New User is created: " + savedUser);
+        User admin = new User("admin", passwordEncoder.encode("pass"), "ROLE_ADMIN");
+        User adam = new User("adam", passwordEncoder.encode("pass"), "ROLE_USER");
+        User ewa = new User("ewa", passwordEncoder.encode("pass"), "ROLE_USER");
+        List<User> users = userRepository.saveAll(Arrays.asList(admin, adam, ewa));
+        log.info("New Users are created: " + users);
     }
 }

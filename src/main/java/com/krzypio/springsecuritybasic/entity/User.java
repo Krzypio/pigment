@@ -1,6 +1,8 @@
 package com.krzypio.springsecuritybasic.entity;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @Table(name = "user")
@@ -18,6 +20,8 @@ public class User {
 
     private String roles;
 
+    private Date creationDate;
+
     protected User() {
     }
 
@@ -26,6 +30,7 @@ public class User {
         this.password = password;
         this.roles = roles;
         this.active = true;
+        this.creationDate = new Date();
     }
 
     public long getId() {
@@ -64,14 +69,20 @@ public class User {
         this.roles = roles;
     }
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
     @Override
     public String toString() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", roles='" + roles + '\'' +
                 ", active=" + active +
+                ", roles='" + roles + '\'' +
+                ", creationDate=" + formatter.format(creationDate) +
                 '}';
     }
 }
