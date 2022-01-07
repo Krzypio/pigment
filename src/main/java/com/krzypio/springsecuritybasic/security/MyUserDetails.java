@@ -1,5 +1,6 @@
-package com.krzypio.security.models;
+package com.krzypio.springsecuritybasic.security;
 
+import com.krzypio.springsecuritybasic.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,8 +1,7 @@
-package com.krzypio.security.service;
+package com.krzypio.springsecuritybasic.security;
 
-import com.krzypio.security.models.Customer;
-import com.krzypio.security.models.CustomerUserDetails;
-import com.krzypio.security.repository.CustomerRepository;
+import com.krzypio.springsecuritybasic.entity.User;
+import com.krzypio.springsecuritybasic.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,17 +13,17 @@ import java.util.Optional;
 
 @Primary
 @Service
-public class CustomerUserDetailsService implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    CustomerRepository customerRepository;
+    UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Customer> customer = customerRepository.findByEmail(username);
+        Optional<User> user = userRepository.findByUsername(username);
 
-        customer.orElseThrow(() -> new UsernameNotFoundException("Not found: " + username));
+        user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + username));
 
-        return customer.map(CustomerUserDetails::new).get();
+        return user.map(MyUserDetails::new).get();
     }
 }

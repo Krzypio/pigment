@@ -1,7 +1,7 @@
-package com.krzypio.security;
+package com.krzypio.springsecuritybasic.runner;
 
-import com.krzypio.security.models.User;
-import com.krzypio.security.repository.UserRepository;
+import com.krzypio.springsecuritybasic.entity.User;
+import com.krzypio.springsecuritybasic.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

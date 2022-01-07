@@ -1,4 +1,4 @@
-package com.krzypio.security.models;
+package com.krzypio.springsecuritybasic.entity;
 
 import javax.persistence.*;
 

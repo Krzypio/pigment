@@ -1,9 +1,8 @@
-package com.krzypio.security.repository;
+package com.krzypio.springsecuritybasic.repository;
 
 
-import com.krzypio.security.models.User;
+import com.krzypio.springsecuritybasic.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
