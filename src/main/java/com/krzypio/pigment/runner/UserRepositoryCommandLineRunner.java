@@ -28,7 +28,7 @@ public class UserRepositoryCommandLineRunner implements CommandLineRunner {
         User admin = new User("admin", passwordEncoder.encode("pass"), "ROLE_ADMIN");
         User adam = new User("adam", passwordEncoder.encode("pass"), "ROLE_USER");
         User ewa = new User("ewa", passwordEncoder.encode("pass"), "ROLE_USER");
-        List<User> users = userRepository.saveAll(Arrays.asList(admin, adam, ewa));
-        log.info("New Users are created: " + users);
+        List<User> addedUsers = userRepository.saveAll(Arrays.asList(admin, adam, ewa));
+        log.info("New Users are created: " + addedUsers);
     }
 }
