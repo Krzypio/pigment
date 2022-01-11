@@ -1,5 +1,6 @@
 package com.krzypio.pigment.exception;
 
+import com.krzypio.pigment.exception.treatment.TreatmentNotFoundException;
 import com.krzypio.pigment.exception.user.UserPasswordNotValidException;
 import com.krzypio.pigment.exception.user.UserAlreadyExistException;
 import com.krzypio.pigment.exception.user.UserNotFoundException;
@@ -64,6 +65,13 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     protected ResponseEntity<Object> handleUserPasswordNotValidException(UserPasswordNotValidException ex, WebRequest request) throws Exception {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), status, "Validation failed" , ex.getMessage());
+        return new ResponseEntity<>(exceptionResponse, status);
+    }
+
+    @ExceptionHandler(TreatmentNotFoundException.class)
+    public final ResponseEntity<Object> handleTreatmentNotFoundException(TreatmentNotFoundException ex, WebRequest request) throws Exception {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), status, ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, status);
     }
 }

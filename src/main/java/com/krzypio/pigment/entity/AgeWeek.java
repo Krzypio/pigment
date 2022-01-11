@@ -1,11 +1,14 @@
 package com.krzypio.pigment.entity;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class AgeWeek {
     @Id
     @GeneratedValue
@@ -15,7 +18,8 @@ public class AgeWeek {
     @PositiveOrZero
     private int weekOfLive;
 
-    @ManyToMany
+    @JsonIgnore
+    @ManyToMany (fetch = FetchType.LAZY)
     private Set<Treatment> treatments;
 
     private AgeWeek() {

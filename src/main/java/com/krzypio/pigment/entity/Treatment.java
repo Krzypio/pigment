@@ -1,14 +1,13 @@
 package com.krzypio.pigment.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.validation.constraints.Min;
+import com.fasterxml.jackson.annotation.*;
+
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Treatment {
     @Id
     @GeneratedValue
@@ -20,7 +19,7 @@ public class Treatment {
     @Size(min = 2, message = "Description should have at least 2 characters")
     private String description;
 
-    @ManyToMany(mappedBy = "treatments")
+    @ManyToMany(mappedBy = "treatments", fetch = FetchType.LAZY)
     private Set<AgeWeek> ageWeeks;
 
     private Treatment() {
@@ -29,6 +28,10 @@ public class Treatment {
     public Treatment(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getName() {

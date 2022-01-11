@@ -24,7 +24,6 @@ public class User {
 
     private String roles;
 
-    @Past
     private Date creationDate;
 
     protected User() {
