@@ -54,6 +54,7 @@ public class AgeWeek {
         return "AgeWeek{" +
                 "id=" + id +
                 ", weekOfLive=" + weekOfLive +
+                //", treatments=" + treatments +
                 '}';
     }
 }

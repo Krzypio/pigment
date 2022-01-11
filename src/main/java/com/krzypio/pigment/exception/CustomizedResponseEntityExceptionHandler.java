@@ -1,6 +1,7 @@
 package com.krzypio.pigment.exception;
 
 import com.krzypio.pigment.exception.other.AgeWeekNotFoundException;
+import com.krzypio.pigment.exception.other.ProductionBatchNotFoundException;
 import com.krzypio.pigment.exception.other.TreatmentNotFoundException;
 import com.krzypio.pigment.exception.user.UserPasswordNotValidException;
 import com.krzypio.pigment.exception.user.UserAlreadyExistException;
@@ -78,6 +79,13 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 
     @ExceptionHandler(AgeWeekNotFoundException.class)
     public final ResponseEntity<Object> handleAgeWeekNotFoundException(AgeWeekNotFoundException ex, WebRequest request) throws Exception {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), status, ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, status);
+    }
+
+    @ExceptionHandler(ProductionBatchNotFoundException.class)
+    public final ResponseEntity<Object> handleProductionBatchNotFoundException(ProductionBatchNotFoundException ex, WebRequest request) throws Exception {
         HttpStatus status = HttpStatus.NOT_FOUND;
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), status, ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, status);

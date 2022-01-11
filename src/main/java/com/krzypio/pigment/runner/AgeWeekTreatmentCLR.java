@@ -14,11 +14,12 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
-public class AgeWeek_Treatment implements CommandLineRunner {
+public class AgeWeekTreatmentCLR implements CommandLineRunner {
 
-    private static final Logger log = LoggerFactory.getLogger(AgeWeek_Treatment.class);
+    private static final Logger log = LoggerFactory.getLogger(AgeWeekTreatmentCLR.class);
 
     @Autowired
     private AgeWeekRepository ageWeekRepository;
@@ -46,18 +47,39 @@ public class AgeWeek_Treatment implements CommandLineRunner {
     private List<Treatment> createTreatments(){
         Treatment claws = new Treatment("claws", "Cutting a claws", Treatment.Category.STANDARD);
         Treatment tails = new Treatment("tails", "Cutting a tails", Treatment.Category.STANDARD);
-        Treatment ironInjection = new Treatment("ironIjection", "Intramuscular injection of iron", Treatment.Category.DRUG);
+        Treatment ironInjection = new Treatment("ironInjection", "Intramuscular injection of iron", Treatment.Category.DRUG);
         List<Treatment> addedTreatments = treatmentRepository.saveAll(Arrays.asList(claws, tails, ironInjection));
         log.info("New Treatments are created: " + addedTreatments);
         return addedTreatments;
     }
 
     private void connectAgeWeeksAndTreatments(List<AgeWeek> ageWeeks, List<Treatment> treatments){
-        for(AgeWeek ageWeek : ageWeeks){
-            ageWeek.setTreatments(Sets.newHashSet(treatments));
-            ageWeekRepository.save(ageWeek);
+//        for(AgeWeek ageWeek : ageWeeks){
+//            ageWeek.setTreatments(Sets.newHashSet(treatments));
+//            ageWeekRepository.save(ageWeek);
+//        }
+        List<AgeWeek> ages0 = ageWeeks.stream().filter(a -> a.getWeekOfLive() == 0).collect(Collectors.toList());
+        List<AgeWeek> ages1 = ageWeeks.stream().filter(a -> a.getWeekOfLive() == 1).collect(Collectors.toList());
+        List<AgeWeek> ages2 = ageWeeks.stream().filter(a -> a.getWeekOfLive() == 2).collect(Collectors.toList());
+        List<Treatment> tr0 = treatments.stream().filter(a -> Arrays.asList("ironInjection").contains(a.getName())).collect(Collectors.toList());
+        List<Treatment> tr1 = treatments.stream().filter(a -> Arrays.asList("claws").contains(a.getName())).collect(Collectors.toList());
+        List<Treatment> tr2 = treatments.stream().filter(a -> Arrays.asList("tails").contains(a.getName())).collect(Collectors.toList());
+
+        for(AgeWeek ageWeek : ages0){
+            ageWeek.setTreatments(Sets.newHashSet(tr0));
         }
-        List<AgeWeek> addedAgeWeeksAndTreatments = ageWeekRepository.saveAll(ageWeeks);
+
+        for(AgeWeek ageWeek : ages1){
+            ageWeek.setTreatments(Sets.newHashSet(tr1));
+        }
+
+        for(AgeWeek ageWeek : ages2){
+            ageWeek.setTreatments(Sets.newHashSet(tr2));
+        }
+
+        List<AgeWeek> addedAgeWeeksAndTreatments = ageWeekRepository.saveAll(ages0);
+        addedAgeWeeksAndTreatments.addAll(ageWeekRepository.saveAll(ages1));
+        addedAgeWeeksAndTreatments.addAll(ageWeekRepository.saveAll(ages2));
         log.info("New connections AgeWeek - Treatments are created: " + addedAgeWeeksAndTreatments);
     }
 }

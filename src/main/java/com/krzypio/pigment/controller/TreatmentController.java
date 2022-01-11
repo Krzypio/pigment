@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class TreatmentController {
@@ -22,6 +23,18 @@ public class TreatmentController {
     @GetMapping("/treatments")
     public List<Treatment> getTreatments(){
         return treatmentRepository.findAll();
+    }
+
+    @GetMapping("/treatmentsStandard")
+    public List<Treatment> getTreatmentsStandard(){
+        List<Treatment> allTreatments = treatmentRepository.findAll();
+        return allTreatments.stream().filter(t -> t.getCategory() == Treatment.Category.STANDARD).collect(Collectors.toList());
+    }
+
+    @GetMapping("/treatmentsDrug")
+    public List<Treatment> getTreatmentsDrug(){
+        List<Treatment> allTreatments = treatmentRepository.findAll();
+        return allTreatments.stream().filter(t -> t.getCategory() == Treatment.Category.DRUG).collect(Collectors.toList());
     }
 
     @GetMapping("/treatments/{id}")

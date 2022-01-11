@@ -26,8 +26,8 @@ public class UserRepositoryCommandLineRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         User admin = new User("admin", passwordEncoder.encode("pass"), "ROLE_ADMIN");
-        User adam = new User("adam", passwordEncoder.encode("pass"), "ROLE_USER");
-        User ewa = new User("ewa", passwordEncoder.encode("pass"), "ROLE_USER");
+        User adam = new User("worker", passwordEncoder.encode("pass"), "ROLE_WORKER");
+        User ewa = new User("wet", passwordEncoder.encode("pass"), "ROLE_WET");
         List<User> addedUsers = userRepository.saveAll(Arrays.asList(admin, adam, ewa));
         log.info("New Users are created: " + addedUsers);
     }

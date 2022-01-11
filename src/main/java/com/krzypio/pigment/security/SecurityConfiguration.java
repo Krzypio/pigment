@@ -30,12 +30,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/my**/**").authenticated()
                 .antMatchers("/users**/**").hasRole("ADMIN")
+                .antMatchers("/treatmentsStandard").hasAnyRole("ADMIN", "WET", "WORKER")
+                .antMatchers("/treatmentsDrug").hasAnyRole("ADMIN", "WET")
                 .antMatchers("/treatments**/**").hasRole("ADMIN")
-                .antMatchers("/ageWeek**/**").hasRole("ADMIN");
+                .antMatchers("/ageWeek**/**").hasRole("ADMIN")
+                .antMatchers("/productionBatches**/**").hasRole("ADMIN");
                 //.anyRequest().hasRole("ADMIN");
         http.formLogin();
         http.httpBasic();
-
     }
 
     private void configurationForH2Console(HttpSecurity http) throws Exception {
