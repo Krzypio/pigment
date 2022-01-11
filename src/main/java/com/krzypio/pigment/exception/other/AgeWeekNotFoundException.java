@@ -1,11 +1,11 @@
-package com.krzypio.pigment.exception.treatment;
+package com.krzypio.pigment.exception.other;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class TreatmentNotFoundException extends RuntimeException{
-    public TreatmentNotFoundException(String message) {
+public class AgeWeekNotFoundException extends RuntimeException{
+    public AgeWeekNotFoundException(String message) {
         super(message);
     }
 }

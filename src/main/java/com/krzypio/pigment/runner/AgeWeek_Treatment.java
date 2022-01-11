@@ -44,9 +44,9 @@ public class AgeWeek_Treatment implements CommandLineRunner {
     }
 
     private List<Treatment> createTreatments(){
-        Treatment claws = new Treatment("claws", "Cutting a claws");
-        Treatment tails = new Treatment("tails", "Cutting a tails");
-        Treatment ironInjection = new Treatment("ironIjection", "Intramuscular injection of iron");
+        Treatment claws = new Treatment("claws", "Cutting a claws", Treatment.Category.STANDARD);
+        Treatment tails = new Treatment("tails", "Cutting a tails", Treatment.Category.STANDARD);
+        Treatment ironInjection = new Treatment("ironIjection", "Intramuscular injection of iron", Treatment.Category.DRUG);
         List<Treatment> addedTreatments = treatmentRepository.saveAll(Arrays.asList(claws, tails, ironInjection));
         log.info("New Treatments are created: " + addedTreatments);
         return addedTreatments;

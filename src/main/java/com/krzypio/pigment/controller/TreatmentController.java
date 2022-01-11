@@ -1,10 +1,7 @@
 package com.krzypio.pigment.controller;
 
 import com.krzypio.pigment.entity.Treatment;
-import com.krzypio.pigment.entity.User;
-import com.krzypio.pigment.exception.treatment.TreatmentNotFoundException;
-import com.krzypio.pigment.exception.user.UserAlreadyExistException;
-import com.krzypio.pigment.exception.user.UserNotFoundException;
+import com.krzypio.pigment.exception.other.TreatmentNotFoundException;
 import com.krzypio.pigment.repository.TreatmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

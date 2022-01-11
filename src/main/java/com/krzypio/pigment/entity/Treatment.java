@@ -19,15 +19,19 @@ public class Treatment {
     @Size(min = 2, message = "Description should have at least 2 characters")
     private String description;
 
+    public enum Category {STANDARD, DRUG};
+    private Category category;
+
     @ManyToMany(mappedBy = "treatments", fetch = FetchType.LAZY)
     private Set<AgeWeek> ageWeeks;
 
     private Treatment() {
     }
 
-    public Treatment(String name, String description) {
+    public Treatment(String name, String description, Category category) {
         this.name = name;
         this.description = description;
+        this.category = category;
     }
 
     public long getId() {
@@ -58,12 +62,22 @@ public class Treatment {
         this.ageWeeks = ageWeeks;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "Treatment{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", category=" + category +
+                ", ageWeeks=" + ageWeeks +
                 '}';
     }
 }
