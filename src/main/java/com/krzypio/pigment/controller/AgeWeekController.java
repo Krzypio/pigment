@@ -6,6 +6,8 @@ import com.krzypio.pigment.exception.other.AgeWeekNotFoundException;
 import com.krzypio.pigment.exception.other.TreatmentNotFoundException;
 import com.krzypio.pigment.repository.AgeWeekRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -50,5 +52,31 @@ public class AgeWeekController {
         existingAgeWeek.orElseThrow(() -> new AgeWeekNotFoundException("AgeWeek with id " + id + " not found."));
         ageWeekRepository.deleteById(id);
         return ResponseEntity.ok("AgeWeek with id " + id + " deleted.");
+    }
+
+    /**
+     * This methods can change WeekOfLive and Treatments. Use this method to connect AgeWeek with Treatment.
+     * @param newAgeWeek
+     * @param id
+     * @return
+     */
+    @PutMapping("/ageWeeks/{id}")
+    public ResponseEntity replaceAgeWeek(@Valid @RequestBody AgeWeek newAgeWeek, @PathVariable long id){
+        return ageWeekRepository.findById(id)
+                .map(aw -> {
+                    aw.setWeekOfLive(newAgeWeek.getWeekOfLive());
+                    aw.setTreatments(newAgeWeek.getTreatments());
+                    AgeWeek savedAgeWeek = ageWeekRepository.save(aw);
+
+                    URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                            .path("/{id}").buildAndExpand(savedAgeWeek.getId())
+                            .toUri();
+
+                    HttpHeaders headers = new HttpHeaders();
+                    headers.setLocation(location);
+                    ResponseEntity responseEntity = new ResponseEntity<AgeWeek>(savedAgeWeek, headers, HttpStatus.CREATED);
+
+                    return  responseEntity;
+                }).orElseThrow(() -> new AgeWeekNotFoundException("AgeWeek with id " + id + " not found."));
     }
 }

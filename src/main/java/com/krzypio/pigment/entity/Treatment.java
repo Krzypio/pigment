@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Treatment {
     @Id
     @GeneratedValue
@@ -22,6 +22,7 @@ public class Treatment {
     public enum Category {STANDARD, DRUG};
     private Category category;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "treatments", fetch = FetchType.LAZY)
     private Set<AgeWeek> ageWeeks;
 

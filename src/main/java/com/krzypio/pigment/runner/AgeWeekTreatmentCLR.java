@@ -35,7 +35,7 @@ public class AgeWeekTreatmentCLR implements CommandLineRunner {
 
     private List<AgeWeek> createAgeWeeks(){
         List<AgeWeek> ageWeeks = new ArrayList<>();
-        for(int i=0; i<26; i++){
+        for(int i=0; i<4; i++){
             AgeWeek ageWeek = new AgeWeek(i);
             ageWeeks.add(ageWeek);
         }
@@ -54,13 +54,10 @@ public class AgeWeekTreatmentCLR implements CommandLineRunner {
     }
 
     private void connectAgeWeeksAndTreatments(List<AgeWeek> ageWeeks, List<Treatment> treatments){
-//        for(AgeWeek ageWeek : ageWeeks){
-//            ageWeek.setTreatments(Sets.newHashSet(treatments));
-//            ageWeekRepository.save(ageWeek);
-//        }
         List<AgeWeek> ages0 = ageWeeks.stream().filter(a -> a.getWeekOfLive() == 0).collect(Collectors.toList());
         List<AgeWeek> ages1 = ageWeeks.stream().filter(a -> a.getWeekOfLive() == 1).collect(Collectors.toList());
         List<AgeWeek> ages2 = ageWeeks.stream().filter(a -> a.getWeekOfLive() == 2).collect(Collectors.toList());
+
         List<Treatment> tr0 = treatments.stream().filter(a -> Arrays.asList("ironInjection").contains(a.getName())).collect(Collectors.toList());
         List<Treatment> tr1 = treatments.stream().filter(a -> Arrays.asList("claws").contains(a.getName())).collect(Collectors.toList());
         List<Treatment> tr2 = treatments.stream().filter(a -> Arrays.asList("tails").contains(a.getName())).collect(Collectors.toList());

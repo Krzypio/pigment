@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class AgeWeek {
     @Id
     @GeneratedValue
@@ -18,7 +18,6 @@ public class AgeWeek {
     @PositiveOrZero
     private int weekOfLive;
 
-    @JsonIgnore
     @ManyToMany (fetch = FetchType.LAZY)
     private Set<Treatment> treatments;
 

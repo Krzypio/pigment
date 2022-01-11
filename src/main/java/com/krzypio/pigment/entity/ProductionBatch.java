@@ -55,7 +55,7 @@ public class ProductionBatch {
         this.saleDate = saleDate;
     }
 
-    public int weekOfLife(){
+    public int calculateWeekOfLife(){
         Date dataFrom = birthPeriodStart;
         int daysBetween = (int) ChronoUnit.DAYS.between(dataFrom.toInstant(), new Date().toInstant());
         return daysBetween/7;
@@ -68,7 +68,7 @@ public class ProductionBatch {
                 ", birthPeriodStart=" + birthPeriodStart +
                 ", birthPeriodEnd=" + birthPeriodEnd +
                 ", saleDate=" + saleDate +
-                ", weekOfLife=" + weekOfLife() +
+                ", weekOfLife=" + calculateWeekOfLife() +
                 '}';
     }
 }
