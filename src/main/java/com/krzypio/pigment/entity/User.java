@@ -1,10 +1,13 @@
 package com.krzypio.pigment.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -25,6 +28,10 @@ public class User {
     private String roles;
 
     private Date creationDate;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
 
     protected User() {
     }
@@ -75,6 +82,10 @@ public class User {
 
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
     }
 
     @Override
